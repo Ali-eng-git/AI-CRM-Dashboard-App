@@ -6,6 +6,7 @@ import morgan from "morgan";
 import {connectDB} from './config/db.js'
 import {notFound, errorHandler} from "./middleware/error.middleware.js"
 import authRoutes from './routes/auth.route.js'
+import leadRoutes from './routes/lead.routes.js'
 
 const app = express()
 
@@ -27,7 +28,9 @@ if(process.env.NODE_ENV !== "production") {
 app.get("/health",(req,res)=>{
     res.json({success:true, status:"ok", service:"CRM api"})
 })
+
 app.use("/api/auth",authRoutes)
+app.use("/api/lead",leadRoutes)
 
 // error handling
 app.use(notFound)

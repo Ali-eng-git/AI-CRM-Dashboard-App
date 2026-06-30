@@ -1,0 +1,27 @@
+@baseUrl =  http://localhost:7000/api/
+@contentType = application/json
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDBmZDA5ZWVhMmNiOGJhYjk5N2YxYiIsImlhdCI6MTc4MjgxMzUzMiwiZXhwIjoxNzgzNDE4MzMyfQ.FO43cKh3-PVWqWj9P4AtI3uLis-zuqbcld6gTW_ccOQ
+
+POST {{baseUrl}}auth/login
+content-type: {{contentType}}
+
+{
+    "email":"test@email.com",
+    "password":"123456"
+}
+
+/// lead rest api
+###
+
+POST {{baseUrl}}lead/
+content-type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+    "name":"Jordan Blake",
+    "company":"Globex",
+    "value":5000,
+    "status":"Qualified",
+    "priority":"High"
+}
