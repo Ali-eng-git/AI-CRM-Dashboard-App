@@ -9,6 +9,7 @@ import authRoutes from './routes/auth.route.js'
 import leadRoutes from './routes/lead.routes.js'
 import contactRoutes from './routes/contact.route.js'
 import noteRoutes from './routes/note.route.js'
+import taskRoutes from './routes/task.route.js'
 
 const app = express()
 
@@ -33,8 +34,10 @@ app.get("/health",(req,res)=>{
 
 app.use("/api/auth",authRoutes)
 app.use("/api/lead",leadRoutes)
+
 app.use("/api/contact",contactRoutes)
-app.use("/api/note",noteRoutes)
+app.use("/api/notes",noteRoutes)
+app.use("/api/tasks",taskRoutes)
 
 // error handling
 app.use(notFound)
