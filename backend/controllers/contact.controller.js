@@ -28,8 +28,8 @@ export const getContact = asyncHandler(async (req, res) => {
 
 export const createContact = asyncHandler(async(req,res)=>{
     const validatedData = createContactSchema.parse(req.body)
-    const contact  = await Contact.create({validatedData, owner:req.user._id})
-    req.status(201).json({success:true, contact})
+    const contact  = await Contact.create({...validatedData, owner:req.user._id})
+    res.status(201).json({success:true, contact})
 })
 
 export const updateContact = asyncHandler(async(req,res)=>{
@@ -38,7 +38,7 @@ export const updateContact = asyncHandler(async(req,res)=>{
 
     const contact = await Contact.findOneAndUpdate(
         {_id:id,owner:req.user._id},
-        validateData,
+        ...validateData,
         {new:true, runValidators:true}
     )
     if(!contact) throw new apiError(404, "Contact not found")

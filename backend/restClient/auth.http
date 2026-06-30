@@ -34,9 +34,29 @@ content-type: {{contentType}}
 Authorization: Bearer {{token}}
 
 {
-    "name":"Jordan Blake",
+    "name":"Jordan",
     "company":"Globex",
-    "value":5000,
-    "status":"Qualified",
+    "title":"CTO",
+    "tags":["Qualified"]
+}
+
+###
+# tasks route
+
+POST {{baseUrl}}tasks/
+content-type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+    "title":"CTO",
     "priority":"High"
+}
+
+###
+PUT {{baseUrl}}tasks/6a43adb2563ee9bfb77dec98
+content-type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+    "status":"Completed"
 }
