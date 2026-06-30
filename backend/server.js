@@ -7,6 +7,7 @@ import {connectDB} from './config/db.js'
 import {notFound, errorHandler} from "./middleware/error.middleware.js"
 import authRoutes from './routes/auth.route.js'
 import leadRoutes from './routes/lead.routes.js'
+import contactRoutes from './routes/contact.route.js'
 
 const app = express()
 
@@ -31,6 +32,7 @@ app.get("/health",(req,res)=>{
 
 app.use("/api/auth",authRoutes)
 app.use("/api/lead",leadRoutes)
+app.use("/api/contact",contactRoutes)
 
 // error handling
 app.use(notFound)

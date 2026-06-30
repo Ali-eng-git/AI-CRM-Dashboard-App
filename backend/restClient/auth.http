@@ -25,3 +25,18 @@ Authorization: Bearer {{token}}
     "status":"Qualified",
     "priority":"High"
 }
+
+###
+# contact route
+
+POST {{baseUrl}}contact/
+content-type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+    "name":"Jordan Blake",
+    "company":"Globex",
+    "value":5000,
+    "status":"Qualified",
+    "priority":"High"
+}
