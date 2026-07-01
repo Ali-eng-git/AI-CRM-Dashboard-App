@@ -68,3 +68,13 @@ Authorization: Bearer {{token}}
 GET {{baseUrl}}ai/status
 content-type: {{contentType}}
 Authorization: Bearer {{token}}
+
+
+
+//////////////////analytic route
+
+###
+
+GET {{baseUrl}}analytics/overview
+content-type: {{contentType}}
+Authorization: Bearer {{token}}
