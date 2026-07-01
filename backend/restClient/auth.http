@@ -60,3 +60,11 @@ Authorization: Bearer {{token}}
 {
     "status":"Completed"
 }
+
+//////////////////ai routes
+
+###
+
+GET {{baseUrl}}ai/status
+content-type: {{contentType}}
+Authorization: Bearer {{token}}
