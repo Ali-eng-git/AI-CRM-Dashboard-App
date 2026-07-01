@@ -9,19 +9,19 @@ import {
 } from "../validations/lead.validation.js";
 
 export const getLeads = asyncHandler(async (req, res) => {
-  const result = leadSchema.safeParse(req.body);
+  const result = leadSchema.safeParse(req.query);
 
   if (!result.success) {
     throw new ApiError(400, result.error.issues[0].message);
   }
 
-  const filter = { owner: req.user_id };
-  if (result.status) filter.status = result.status;
-  if (result.priority) filter.priority = result.priority;
-  if (result.source) filter.source = result.source;
-  if (result.search) {
-    const rx = new RegExp(result.search, "i");
-    filter.$or = [{ name: rx }, { email: rx }, { compnay: rx }];
+  const filter = { owner: req.user._id };
+  if (result.data.status) filter.status = result.data.status;
+  if (result.data.priority) filter.priority = result.data.priority;
+  if (result.data.source) filter.source = result.data.source;
+  if (result.data.search) {
+    const rx = new RegExp(result.data.search, "i");
+    filter.$or = [{ name: rx }, { email: rx }, { company: rx }];
   }
 
   const leads = await Lead.find(filter).sort({ order: 1, createdAt: -1 });
@@ -31,9 +31,9 @@ export const getLeads = asyncHandler(async (req, res) => {
 export const getLead = asyncHandler(async (req, res) => {
   const validatedId = objectId.safeParse(req.params.id);
   if (!validatedId.success) {
-    throw new ApiError(400, result.error.issues[0].message);
+    throw new ApiError(400, validatedId.error.issues[0].message);
   }
-  const { id } = validatedId;
+  const id = validatedId;
 
   const lead = await Lead.findOne({ _id: id, owner: req.user._id });
   if (!lead) throw new ApiError(404, "Lead not found");
@@ -49,10 +49,12 @@ export const createLead = asyncHandler(async (req, res) => {
 
 export const updateLead = asyncHandler(async (req, res) => {
   const validatedData = updateLeadSchema.parse(req.body);
-  const validatedId = objectId.parse(res.params.id);
+  const validatedId = objectId.parse(req.params.id);
+
+  const id = validatedId;
 
   const lead = await Lead.findOneAndUpdate(
-    { _id: validatedId, owner: req.user._id },
+    { _id: id, owner: req.user._id },
     validatedData,
     { new: true, runValidators: true },
   );
@@ -65,7 +67,7 @@ export const updateLead = asyncHandler(async (req, res) => {
 });
 
 export const deleteLead = asyncHandler(async (req, res) => {
-  const { id } = objectId.parse(req.params.id);
+  const id = objectId.parse(req.params.id);
   const lead = await Lead.findOneAndDelete({ _id: id, owner: req.user._id });
   if (!lead) throw new ApiError(404, "Lead not found");
   res.json({ success: true, message: "Lead deleted" });
@@ -79,7 +81,7 @@ export const reorderLeads = asyncHandler(async (req, res) => {
 
   await Promise.all(
     updates.map((u) => {
-      Lead.updateOne(
+     return Lead.updateOne(
         { _id: u.id, owner: req.user._id },
         { $set: { status: u.status, order: u.order } },
       );

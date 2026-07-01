@@ -15,9 +15,9 @@ const getClient = () => {
   return client;
 };
 
-const MODEL = () => process.env.GEMINI_API_KEY || "gemini-2.5-flash";
+const MODEL = () => process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
-export const isAIConfigured = () => Boolean(process.env.GEMINI_API_KEY);
+export const isAIConfigured = () => Boolean(process.env.GEMINI_MODEL);
 
 const generateJSON = async (prompt, schema) => {
   const ai = getClient();
@@ -64,16 +64,16 @@ export const generateLeadSummary = async(lead)=>{
     -Current pipeline stage: ${lead.status || "New"}
     -Potential deal value: ${lead.value || 0}
     -Source: ${lead.source || "Unknown"}
-    -Notes: ${lead.notes || "Nonw"}
+    -Notes: ${lead.notes || "Non"}
 
     Return JSON only.`
 
     const schema ={
         type:"object",
         properties:{
-            summanry:{
+            summary:{
                 type:"string",
-                descritption:"2-3 sentence executive summaary of the lead",
+                description:"2-3 sentence executive summary of the lead",
             },
             riskScore:{
                 type:"integer",
@@ -110,7 +110,7 @@ export const generateEmail = async({lead, purpose,tone,sender})=>{
     -Context / notes: ${lead?.notes || "None"}
     
     Return JSON only with a compelling subject line and a complete email body.
-    Use line breaks {\\n} in the body.Keep it under 180 words. Sign of as
+    Use line breaks {\\n} in the body.Keep it under 180 words. Sign off as
     ${sender?.name || "the TTP CRM team"}
     `
 
@@ -118,7 +118,7 @@ export const generateEmail = async({lead, purpose,tone,sender})=>{
         type:"object",
         properties:{
             subject:{ type:"string"},
-            body:{type:string},
+            body:{type:"string"},
         },
         required:["subject","body"]
     }
@@ -144,7 +144,7 @@ export const generateLeadInsight= async(pipelineStats)=>{
                  description:"One-sentence summaty of pipeline health"
                 },
              insights:{
-                 type:"string",
+                 type:"array",
                  description:"3-5 specific, data-driven observations",
                  items:{type:"string"}
                 },

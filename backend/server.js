@@ -36,9 +36,9 @@ app.get("/health",(req,res)=>{
 })
 
 app.use("/api/auth",authRoutes)
-app.use("/api/lead",leadRoutes)
+app.use("/api/leads",leadRoutes)
 
-app.use("/api/contact",contactRoutes)
+app.use("/api/contacts",contactRoutes)
 app.use("/api/notes",noteRoutes)
 app.use("/api/tasks",taskRoutes)
 

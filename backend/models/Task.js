@@ -20,10 +20,10 @@ const taskSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: TASK_STATUSES,
-      defualt: "Pending",
+      default: "Pending",
       index: true,
     },
-    priority: { type: String, enum: TASK_PRIORITIES, defualt: "Medium" },
+    priority: { type: String, enum: TASK_PRIORITIES, default: "Medium" },
     relatedLead: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Lead",
@@ -34,7 +34,7 @@ const taskSchema = new mongoose.Schema(
       ref: "Contact",
       default: null,
     },
-    completedAt: { type: Date, defualt: null },
+    completedAt: { type: Date, default: null },
   },
   { timestamps: true },
 );

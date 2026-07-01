@@ -10,7 +10,7 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 
 const resolveLead = async (req) => {
   if (req.body.leadId) {
-    const lead = await Lead.findOne({ _id: leadId, owner: req.user._id });
+    const lead = await Lead.findOne({ _id: req.body.leadId, owner: req.user._id });
     if (!lead) throw new ApiError(404, "Lead not found");
     return lead;
   }

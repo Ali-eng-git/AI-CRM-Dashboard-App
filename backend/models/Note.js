@@ -4,7 +4,7 @@ const noteSchma = new mongoose.Schema({
     owner:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
-        reqruied:true,
+        required:true,
         index:true,
     },
     content:{type:String, required:[true,"Note content is required"]},

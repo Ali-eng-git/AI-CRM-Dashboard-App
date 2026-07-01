@@ -30,7 +30,7 @@ export const getOverview = asyncHandler(async (req, res) => {
   const won = byStage.Won.count;
   const lost = byStage.Lost.count;
   const closed = won + lost;
-  const conversionRate = closed ? Math.round((won / closer) * 100) : 0;
+  const conversionRate = closed ? Math.round((won / closed) * 100) : 0;
 
   const months = lastSixMonths();
   const trend = months.map(({ key, label }) => ({
@@ -47,7 +47,7 @@ export const getOverview = asyncHandler(async (req, res) => {
 
     if (idx !== undefined) {
       trend[idx].leads += 1;
-      if (l.status === "Won") trend[idx].wond += l.value || 0;
+      if (l.status === "Won") trend[idx].won += l.value || 0;
     }
   }
 
@@ -55,10 +55,11 @@ export const getOverview = asyncHandler(async (req, res) => {
     .sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt))
     .slice(0, 6)
     .map((l) => ({
-      id: l._id,
+      id: l._id.toString(),
       name: l.name,
       company: l.company,
       status: l.status,
+      value:l.value,
       updatedAt: l.updatedAt,
     }));
 
