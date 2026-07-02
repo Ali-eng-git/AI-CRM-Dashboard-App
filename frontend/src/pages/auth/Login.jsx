@@ -24,6 +24,7 @@ export default function Login() {
     setSubmitting(true);
     try {
       const user = await login(data);
+      console.log( user);
       toast.success(`Welcome back, ${user.name.split(" ")[0]} 👋`);
       navigate(location.state?.from?.pathname || "/", { replace: true });
     } catch (err) {
@@ -35,8 +36,8 @@ export default function Login() {
 
   // Convenience: pre-fill the seeded demo credentials.
   const useDemo = () => {
-    setValue("email", "alex@timetoprogram.com");
-    setValue("password", "Test@1234");
+    setValue("email", "test@email.com");
+    setValue("password", "123456");
   };
 
   return (

@@ -1,45 +1,49 @@
 import mongoose from "mongoose";
-import bcrypt from 'bcryptjs'
+import bcrypt from "bcryptjs";
 
-const userSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:[true,"Name is required"],
-        trim:true,
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Name is required"],
+      trim: true,
     },
-    email:{
-        type:String,
-        required:[true,"Email is required"],
-        unique:true,
-        lowercase:true,
-        trim:true,
-        match: [/^\S+@\S+\.\S+$/, "Please enter a valid email"]
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+      unique: true,
+      lowercase: true,
+      trim: true,
+      match: [/^\S+@\S+\.\S+$/, "Please enter a valid email"],
     },
-    password:{
-        type:String,
-        required:[true,"Password is required"],
-        minlength:[6,"Password must be at least 6 characters"],
-        select:false,
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      minlength: [6, "Password must be at least 6 characters"],
+      select: false,
     },
-    role:{
-        type:String,
-        enum:["owner","member"],
-        default:"owner",
+    role: {
+      type: String,
+      enum: ["owner", "member"],
+      default: "owner",
     },
-    company:{type:String, trim:true,default:""},
-    avatar:{type:String,default:""},
-},{
-    timestamps:true
-})
+    company: { type: String, trim: true, default: "" },
+    avatar: { type: String, default: "" },
+  },
+  {
+    timestamps: true,
+  },
+);
 
-userSchema.pre("save",async function (next) {
-    if(!this.isModified("password"))return next();
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password,salt)
-})
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
 
-userSchema.methods.matchPassword=function (value) {
-    return bcrypt.compare(value,this.password);
-}
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
-export const User = mongoose.model("User",userSchema);
+userSchema.methods.matchPassword = function (value) {
+  return bcrypt.compare(value, this.password);
+};
+
+export const User = mongoose.model("User", userSchema);

@@ -2,7 +2,7 @@ import {User} from '../models/User.js'
 import {asyncHandler} from '../utils/AsyncHandler.js'
 import {ApiError} from '../utils/ApiError.js'
 import {generateToken} from "../utils/generateToken.js"
-import { loginSchema, registerSchema } from '../validations/auth.validation.js'
+import { loginSchema, registerSchema,updateProfileSchema } from '../validations/auth.validation.js'
 
 const toClientUser = (user)=>({
     id:user.id,
@@ -49,7 +49,7 @@ export const login = asyncHandler(async(req,res)=>{
     if (!user || !(await user.matchPassword(password))) {
         throw new ApiError(401,"Invalid email or password")
     }
-    console.log(generateToken(user._id),)
+
     res.status(200).json({
         success:true,
         token:generateToken(user._id),
