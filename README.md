@@ -1,13 +1,29 @@
 AI CRM — Intelligent Sales Pipeline
+# aI CRM Dashboard
+
+![React](https://img.shields.io/badge/React-19-blue?logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-Express-green?logo=node.js)
+![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-darkgreen?logo=mongodb)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
+![Gemini](https://img.shields.io/badge/AI-Google%20Gemini-blueviolet)
+![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 A full-stack CRM built with the MERN stack and powered by Google Gemini AI. Manage leads, contacts, tasks, and notes in one workspace — with an AI assistant that surfaces insights, drafts outreach, and answers questions about your pipeline.
 
 
-![dashboard](./screenshots/dashboard.jpg)
+##  Screenshots
 
-![leads page](./screenshots/leads.jpg)
+### Dashboard
 
-![pipeline page](./screenshots/pipeline.jpg)
+![Dashboard](./screenshots/dashboard.jpg)
+
+### Leads
+
+![Leads](./screenshots/leads.jpg)
+
+### Pipeline
+
+![Pipeline](./screenshots/pipeline.jpg)
 
 
 
@@ -74,7 +90,31 @@ Registration, login, and persistent sessions
 
 Tech Stack
 
-LayerTechnologyFrontendReact 18, React Router v6, Tailwind CSS, Framer MotionBackendNode.js, Express.jsDatabaseMongoDB, MongooseAIGoogle Gemini APIAuthJSON Web Tokens (JWT)Dev toolingVite, Morgan, dotenv
+| Layer | Technology |
+|-------|------------|
+| Frontend | React 19, React Router, Tailwind CSS, Framer Motion |
+| Backend | Node.js, Express.js |
+| Database | MongoDB, Mongoose |
+| AI | Google Gemini API |
+| Authentication | JWT |
+| Validation | Zod |
+| Charts | Recharts |
+| Build Tool | Vite |
+
+##Architecture
+React
+   │
+Axios
+   │
+Express API
+   │
+Controllers
+   │
+Services
+   │
+Models
+   │
+MongoDB
 
 
 Project Structure
@@ -125,6 +165,14 @@ ai-crm/
     │   └── App.jsx
     └── index.html
 
+##  Security
+
+- Password hashing with bcrypt
+- JWT Authentication
+- Protected Routes
+- Zod Input Validation
+- Centralized Error Handling
+- Mongoose Schema Validation
 
 Getting Started
 
